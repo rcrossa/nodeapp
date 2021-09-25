@@ -1,9 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('') {
+    stage('error') {
       steps {
-        git(url: 'https://github.com/rcrossa/nodeapp', branch: 'master')
+        git(url: 'https://github.com/rcrossa/nodeapp', branch: 'master', poll: true)
       }
     }
 
