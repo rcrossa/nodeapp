@@ -1,11 +1,25 @@
 pipeline {
   agent any
+  triggers {
+    pollSCM('*/15 * * * *')
+  }
   stages {
-    stage('error') {
+    stage('Deploy') {
+      when {
+        branch 'master'
+      }
       steps {
-        git(url: 'https://github.com/rcrossa/nodeapp', branch: 'master', poll: true)
+        slackSend(color: 'good', message: "${env.JOB_NAME} - ${env.BUILD_DISPLAY_NAME} - Iniciando deploy")
+        ansiblePlaybook(playbook: '/path/a/mis/playbooks/proyecto/produccion.yml', colorized: true, inventory: '/path/a/mis/playbooks/hosts')
       }
     }
-
+  }
+  post {
+    success {
+      slackSend(color: 'good', message: "${env.JOB_NAME} - ${env.BUILD_DISPLAY_NAME} - Funcionó correctamente")
+    }
+    failure {
+      slackSend(color: 'danger', message: "${env.JOB_NAME} - ${env.BUILD_DISPLAY_NAME} - Hubo un problema con el deploy")
+    }
   }
 }
