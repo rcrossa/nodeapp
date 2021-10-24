@@ -10,7 +10,8 @@ pipeline {
 
     stage('Build') {
       steps {
-        sh 'npm i'
+        sh 'cd nodeapp'
+        sh 'npm install'
         echo 'Building..'
       }
     }
