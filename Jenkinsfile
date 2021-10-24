@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Cloning') {
       steps {
-        git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main')
+        git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github')
         echo 'Cloning..'
       }
     }
