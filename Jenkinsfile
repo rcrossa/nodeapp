@@ -5,7 +5,10 @@ pipeline {
       steps {
         git 'https://github.com/rcrossa/nodeapp.git'
         echo 'Cloning..'
-        warnError(message: 'Hay un error con la clonación')
+        warnError(message: 'Hay un error con la clonaciÃ³n') {
+          slackSend(channel: '#github-update', color: 'Red', message: 'Hay un error al clonar.', username: 'Admin')
+        }
+
       }
     }
 
