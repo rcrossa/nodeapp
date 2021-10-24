@@ -5,6 +5,7 @@ pipeline {
       steps {
         git 'https://github.com/rcrossa/nodeapp.git'
         echo 'Cloning..'
+        warnError(message: 'Hay un error con la clonación')
       }
     }
 
