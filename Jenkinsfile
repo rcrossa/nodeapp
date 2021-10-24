@@ -2,19 +2,22 @@ pipeline {
     agent any
 
     stages {
+        stage('Cloning') {
+            steps {
+                git 'https://github.com/rcrossa/nodeapp.git'
+                echo 'Cloning..'
+            }
+        }
         stage('Build') {
             steps {
+                sh 'npm install'
                 echo 'Building..'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                sh 'npm test'
+                echo 'npm test..'
             }
         }
     }
