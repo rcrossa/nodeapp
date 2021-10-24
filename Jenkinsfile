@@ -1,9 +1,5 @@
 pipeline {
   agent any
-  tools {nodejs "node"}
-  triggers {
-    pollSCM('*/15 * * * *')
-  }
   stages {
     stage('Cloning') {
       steps {
@@ -16,7 +12,7 @@ pipeline {
       steps {
         sh 'npm install'
         echo 'Building..'
-        slackSend channel: '#gitHub-update', color: '#439FE0)', iconEmoji: ':)', message: '"started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', tokenCredentialId: 'dbi-slack', username: 'Jenkins'
+        slackSend(channel: '#gitHub-update', color: '#439FE0)', iconEmoji: ':)', message: '"started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', tokenCredentialId: 'dbi-slack', username: 'Jenkins', attachments: 'env.JOB_NAME', blocks: 'env.JOB_NAME')
       }
     }
 
@@ -24,9 +20,15 @@ pipeline {
       steps {
         sh 'npm test'
         echo 'npm test..'
-        slackSend channel: '#gitHub-update', color: '#439FE0)', iconEmoji: ':)', message: '"Test iniciados ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', tokenCredentialId: 'dbi-slack', username: 'Jenkins'
+        slackSend(channel: '#gitHub-update', color: '#439FE0)', iconEmoji: ':)', message: '"Test iniciados ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', tokenCredentialId: 'dbi-slack', username: 'Jenkins')
       }
     }
 
+  }
+  tools {
+    nodejs 'node'
+  }
+  triggers {
+    pollSCM('*/15 * * * *')
   }
 }
