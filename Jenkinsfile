@@ -2,10 +2,21 @@ pipeline {
   agent any
   stages {
     stage('Cloning') {
-      steps {
-        git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github')
-        echo 'Cloning..'
-        slackSend(channel: '#gitHub-update', color: 'good', message: 'Testeando', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':thumbsub')
+      parallel {
+        stage('Cloning') {
+          steps {
+            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github')
+            echo 'Cloning..'
+            slackSend(channel: '#gitHub-update', color: 'good', message: 'Testeando', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':thumbsub')
+          }
+        }
+
+        stage('') {
+          steps {
+            slackSend()
+          }
+        }
+
       }
     }
 
