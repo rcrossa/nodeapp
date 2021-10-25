@@ -1,5 +1,5 @@
 pipeline {
-  agent {nodejs}
+  agent {node}
   stages {
     stage('Cloning') {
       steps {
