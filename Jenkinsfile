@@ -31,7 +31,7 @@ pipeline {
       steps {
         sh 'npm test'
         echo 'npm test..'
-        slackSend(channel: '#gitHub-update', color: '#439FE0)', iconEmoji: ':)', message: 'Test iniciados ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:',botUser: false)
+        slackSend(channel: '#gitHub-update', color: '#439FE0)', message: 'Test iniciados ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:',botUser: false)
       }
     }
 
