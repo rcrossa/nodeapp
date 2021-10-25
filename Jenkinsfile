@@ -1,21 +1,12 @@
 pipeline {
   agent any
-   tools {
-        nodejs('node')
-    }
-    triggers {
-        pollSCM('*/15 * * * *')
-    }
   stages {
     stage('Cloning') {
       steps {
         git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github')
         echo 'Cloning..'
-        slackSend channel: '#gitHub-update', color: 'good', message: 'Testeando', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects'
+        slackSend(channel: '#gitHub-update', color: 'good', message: 'Testeando', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':thumbsub')
       }
-    // stage('Slack Notification'){
-    //     slackSend channel: '#gitHub-update', color: 'good', message: 'Testeando', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects'
-    // }
     }
 
     stage('Build') {
@@ -33,5 +24,12 @@ pipeline {
         slackSend(channel: '#gitHub-update', color: '#439FE0)', iconEmoji: ':)', message: '"Test iniciados ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', tokenCredentialId: 'dbi-slack', username: 'Jenkins')
       }
     }
+
+  }
+  tools {
+    nodejs 'node'
+  }
+  triggers {
+    pollSCM('*/15 * * * *')
   }
 }
