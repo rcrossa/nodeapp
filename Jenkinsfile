@@ -12,6 +12,9 @@ pipeline {
         git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github')
         echo 'Cloning..'
       }
+    stage('Slack Notification'){
+        slackSend channel: '#gitHub-update', color: 'good', message: 'Testeando', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects'
+    }
     }
 
     stage('Build') {
