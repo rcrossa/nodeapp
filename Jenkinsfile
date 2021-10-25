@@ -19,20 +19,15 @@ pipeline {
       }
     }
 
-    stages{
-            stage('Build') {
-            steps {
-                sh 'npm install'
-                echo 'Building..'
-                slackSend(channel: '#gitHub-update', color: '#439FE0)', iconEmoji: ':)', message: '"started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', tokenCredentialId: 'dbi-slack', username: 'Jenkins')
-            }
-                    stage('') {
-          steps {
-            slackSend(channel: '#gitHub-update', color: 'good', message: 'Testeando', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':thumbsub')
-          }
+  stages{
+    stage('Build') {
+        steps {
+              sh 'npm install'
+              echo 'Building..'
+              slackSend(channel: '#gitHub-update', color: '#439FE0)', iconEmoji: ':)', message: '"started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', tokenCredentialId: 'dbi-slack', username: 'Jenkins')
         }
     }
-    }
+  }
 
     stage('Test') {
       steps {
