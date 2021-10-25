@@ -10,7 +10,7 @@ pipeline {
           }
         }
 
-        stage('error') {
+        stage('Notificacion') {
           steps {
             slackSend(channel: '#gitHub-update', color: '#439FE0', message: 'started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':ojos', botUser: false)
           }
