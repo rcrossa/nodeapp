@@ -18,8 +18,6 @@ pipeline {
 
       }
     }
-
-  stages{
     stage('Build') {
         steps {
               sh 'npm install'
@@ -27,7 +25,7 @@ pipeline {
               slackSend(channel: '#gitHub-update', color: '#439FE0)', iconEmoji: ':)', message: '"started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', tokenCredentialId: 'dbi-slack', username: 'Jenkins')
         }
     }
-  }
+  
 
     stage('Test') {
       steps {
