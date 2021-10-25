@@ -1,12 +1,12 @@
 pipeline {
   agent any
-  stages {
-    tools {
+   tools {
         nodejs('node')
     }
     triggers {
         pollSCM('*/15 * * * *')
     }
+  stages {
     stage('Cloning') {
       steps {
         git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github')
@@ -29,6 +29,5 @@ pipeline {
         slackSend(channel: '#gitHub-update', color: '#439FE0)', iconEmoji: ':)', message: '"Test iniciados ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', tokenCredentialId: 'dbi-slack', username: 'Jenkins')
       }
     }
-
   }
 }
