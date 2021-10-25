@@ -12,7 +12,7 @@ pipeline {
 
         stage('Notificacion') {
           steps {
-            slackSend(channel: '#gitHub-update', color: '#439FE0', message: 'Incio de proceso - "${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':ojos', sendAsText: true)
+            slackSend(channel: '#gitHub-update', color: '#439FE0', message: 'Incio de proceso', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':ojos', sendAsText: true)
           }
         }
 
@@ -23,7 +23,7 @@ pipeline {
       steps {
         sh 'npm install'
         echo 'Building..'
-        slackSend(channel: '#gitHub-update', color: 'good', message: 'Build ok', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
+        slackSend(channel: '#gitHub-update', color: 'good', message: 'Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
       }
     }
 
@@ -31,7 +31,13 @@ pipeline {
       steps {
         sh 'npm test'
         echo 'npm test..'
-        slackSend(channel: '#gitHub-update', color: 'Good', message: 'Test Ok. "Test iniciados ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
+        slackSend(channel: '#gitHub-update', color: 'Good', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
+      }
+    }
+
+    stage('') {
+      steps {
+        slackSend()
       }
     }
 
