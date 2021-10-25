@@ -1,6 +1,12 @@
 pipeline {
-  agent {any}
+  agent any
   stages {
+    tools {
+        nodejs('node')
+    }
+    triggers {
+        pollSCM('*/15 * * * *')
+    }
     stage('Cloning') {
       steps {
         git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github')
@@ -24,11 +30,5 @@ pipeline {
       }
     }
 
-  }
-  tools {
-    nodejs('node')
-  }
-  triggers {
-    pollSCM('*/15 * * * *')
   }
 }
