@@ -12,7 +12,7 @@ pipeline {
 
         stage('Notificacion') {
           steps {
-            slackSend(channel: '#gitHub-update', color: '#439FE0', message: 'Incio de proceso', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':ojos')
+            slackSend(channel: '#gitHub-update', color: '#439FE0', message: 'Incio de proceso ${env.BRANCH_NAME}', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':ojos')
           }
         }
 
