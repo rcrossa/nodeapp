@@ -35,9 +35,9 @@ pipeline {
       }
     }
 
-    stage('') {
+    stage('Notificacion de Finalizacion') {
       steps {
-        slackSend()
+        slackSend(channel: '#gitHub-update', color: 'Good', message: 'Fin de proceso. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
       }
     }
 
