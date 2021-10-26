@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Cloning') {
       parallel {
-        stage('Cloning') {
+        stage('Clone') {
           steps {
             git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'test', credentialsId: 'github')
             echo 'Cloning..'
@@ -43,10 +43,10 @@ pipeline {
           }
         }
 
-        stage('Commit Production') {
+        stage('Pre-Produccion') {
           steps {
             git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github')
-            slackSend(message: 'Actualización de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', teamDomain: 'devtesis')
+            slackSend(message: 'ActualizaciÃ³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', teamDomain: 'devtesis')
           }
         }
 
