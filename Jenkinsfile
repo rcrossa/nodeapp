@@ -12,7 +12,7 @@ pipeline {
 
         stage('Notificacion') {
           steps {
-            slackSend(channel: '#gitHub-update', color: '#439FE0', message: 'Incio de proceso.', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':ojos', blocks: 'hh:mm:ss')
+            slackSend(channel: '#gitHub-update', color: '#439FE0', message: 'Incio de proceso.', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:')
           }
         }
 
@@ -23,7 +23,7 @@ pipeline {
       steps {
         sh 'npm install'
         echo 'Building..'
-        slackSend(channel: '#gitHub-update', color: 'good', message: 'Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
+        slackSend(channel: '#gitHub-update', color: 'good', message: 'Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
       }
     }
 
@@ -31,7 +31,7 @@ pipeline {
       steps {
         sh 'npm test'
         echo 'npm test..'
-        slackSend(channel: '#gitHub-update', color: 'Good', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
+        slackSend(channel: '#gitHub-update', color: 'Good', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
       }
     }
 
