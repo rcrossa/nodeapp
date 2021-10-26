@@ -12,7 +12,7 @@ pipeline {
 
         stage('Notificacion') {
           steps {
-            slackSend(channel: '#gitHub-update', color: 'Good', message: 'Incio de proceso de Clonaci�n', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
+            slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Incio de proceso de Clonación', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
           }
         }
 
@@ -31,7 +31,7 @@ pipeline {
       steps {
         sh 'npm test'
         echo 'npm test..'
-        slackSend(channel: '#gitHub-update', color: 'Good', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
+        slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
       }
     }
 
@@ -39,14 +39,14 @@ pipeline {
       parallel {
         stage('Notificacion de Finalizacion') {
           steps {
-            slackSend(channel: '#gitHub-update', color: 'Good', message: 'Fin de proceso. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
+            slackSend(channel: '#gitHub-update', color: 'good', message: 'Fin de proceso. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
           }
         }
 
         stage('Pre-Produccion') {
           steps {
             git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github', changelog: true)
-            slackSend(message: 'Actualización de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
+            slackSend(message: 'ActualizaciÃ³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
           }
         }
 
