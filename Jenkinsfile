@@ -5,8 +5,8 @@ pipeline {
       parallel {
         stage('Clone') {
           steps {
-            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'test', credentialsId: 'github')
             echo 'Cloning..'
+            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'test', credentialsId: 'github')
           }
         }
 
@@ -21,17 +21,17 @@ pipeline {
 
     stage('Build') {
       steps {
-        sh 'npm install'
-        echo 'Building..'
         slackSend(channel: '#gitHub-update', color: 'good', message: 'Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
+        echo 'Building..'
+        sh 'npm install'
       }
     }
 
     stage('Test') {
       steps {
-        sh 'npm test'
-        echo 'npm test..'
         slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
+        echo 'npm test..'
+        sh 'npm test'
       }
     }
 
@@ -45,8 +45,8 @@ pipeline {
 
         stage('Pre-Produccion') {
           steps {
-            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github', changelog: true)
             slackSend(message: 'ActualizaciÃ³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
+            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'test', credentialsId: 'github', changelog: true)
           }
         }
 
