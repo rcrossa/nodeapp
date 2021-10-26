@@ -12,7 +12,7 @@ pipeline {
 
         stage('Notificacion') {
           steps {
-            slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Incio de proceso de Clonación', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
+            slackSend(channel: '#gitHub-update', color: 'good', message: 'Incio de proceso de Clonación', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
           }
         }
 
@@ -32,24 +32,18 @@ pipeline {
         slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
         echo 'npm test..'
         sh 'npm test'
+        catchError() {
+          slackSend(message: 'Hay un error en los test.', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', teamDomain: 'devtesis', color: 'danger', channel: '#gitHub-update')
+        }
+
       }
     }
 
-    stage('Notificacion de Finalizacion') {
-      parallel {
-        stage('Notificacion de Finalizacion') {
-          steps {
-            slackSend(channel: '#gitHub-update', color: 'good', message: 'Fin de proceso. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
-          }
-        }
-
-        stage('Pre-Produccion') {
-          steps {
-            slackSend(message: 'ActualizaciÃ³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
-            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'test', credentialsId: 'github', changelog: true)
-          }
-        }
-
+    stage('Pre-Produccion') {
+      agent any
+      steps {
+        slackSend(message: 'ActualizaciÃ³n de rama production', channel: '#gitHub-update', color: 'good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
+        git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'test', credentialsId: 'github', changelog: true)
       }
     }
 
