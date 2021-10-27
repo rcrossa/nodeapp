@@ -1,5 +1,7 @@
 pipeline {
-  agent any
+  agent tools {
+    nodejs 'node'
+  }
   stages {
     stage('Cloning') {
       parallel {
@@ -50,9 +52,6 @@ pipeline {
       }
     }
 
-  }
-  tools {
-    nodejs 'node'
   }
   triggers {
     pollSCM('*/15 * * * *')
