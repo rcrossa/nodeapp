@@ -21,7 +21,6 @@ pipeline {
     }
 
     stage('Build') {
-      agent any
       steps {
         slackSend(channel: '#gitHub-update', color: 'good', message: 'Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
         echo 'Building..'
@@ -31,7 +30,6 @@ pipeline {
     }
 
     stage('Test') {
-      agent any
       steps {
         slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
         echo 'Testeando.'
@@ -44,7 +42,6 @@ pipeline {
     }
 
     stage('Pre-Produccion') {
-      agent any
       steps {
         slackSend(message: 'ActualizaciÃ³n de rama production', channel: '#gitHub-update', color: 'good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
         git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github', changelog: true)
