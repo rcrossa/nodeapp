@@ -71,7 +71,8 @@ pipeline {
             sh '''git config --global user.email "rcrossa@hotmail.com"
 git config --global user.name "rcrossa"
 git config --global user.pass
-git push origin main'''
+git checkout pre-produccion
+git merge main'''
           }
         }
 
