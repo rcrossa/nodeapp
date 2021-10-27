@@ -25,7 +25,6 @@ pipeline {
         slackSend(channel: '#gitHub-update', color: 'good', message: 'Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
         echo 'Building..'
         sh 'npm install'
-        sh 'npm audit fix --force'
       }
     }
 
