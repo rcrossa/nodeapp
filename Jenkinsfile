@@ -12,7 +12,7 @@ pipeline {
 
         stage('Notificacion') {
           steps {
-            slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Incio de proceso de Clonación', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
+            slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Incio de proceso de ClonaciÃƒÂ³n', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
           }
         }
 
@@ -44,9 +44,20 @@ pipeline {
         }
 
         stage('Pre-Produccion') {
+          environment {
+            user = 'recross'
+            pass = 'D1skFail'
+          }
           steps {
+            slackSend(message: 'ActualizaciÃƒÆ’Ã‚Â³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
             git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github', changelog: true)
-            slackSend(message: 'ActualizaciÃ³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
+            sh '''git config --global user.email "rcrossa@hotmail.com"
+git config --global user.name "rcrossa"
+git config user.pass
+git merge pre-produccion
+
+
+'''
           }
         }
 
