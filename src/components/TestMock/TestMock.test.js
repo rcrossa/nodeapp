@@ -12,14 +12,14 @@ test("mock a function", async () => {
   //   () => new Promise(resolve => resolve(MockClienteWeb.listaClientes))
   // );
 
-  const { getAllByTestId } = render(<TestMock clienteWeb={clienteWeb} />);
+//   const { getAllByTestId } = render(<TestMock clienteWeb={clienteWeb} />);
 
-  expect(clienteWeb.cargarClientes).toHaveBeenCalled();
+//   expect(clienteWeb.cargarClientes).toHaveBeenCalled();
 
-  await wait(() => {
-    expect(getAllByTestId("cliente")).toHaveLength(3);
-  });
-});
+//   await wait(() => {
+//     expect(getAllByTestId("cliente")).toHaveLength(3);
+//   });
+// });
 
 // test("spy a function", async () => {
 //   //Arrange
@@ -34,4 +34,4 @@ test("mock a function", async () => {
 //   await waitFor(() => {
 //     expect(getAllByTestId("cliente")).toHaveLength(3);
 //   });
-// });
+});
