@@ -30,12 +30,7 @@ pipeline {
     }
 
     stage('Test') {
-      agent {
-        node {
-          label 'nodejs'
-        }
-
-      }
+      agent any
       steps {
         slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
         echo 'npm test..'
