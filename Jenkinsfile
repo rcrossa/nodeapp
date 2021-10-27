@@ -12,7 +12,7 @@ pipeline {
 
         stage('Notificacion') {
           steps {
-            slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Incio de proceso de ClonaciÃƒÆ’Ã‚Â³n', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
+            slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Clonar', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
           }
         }
 
@@ -23,7 +23,7 @@ pipeline {
       steps {
         sh 'npm install'
         echo 'Building..'
-        slackSend(channel: '#gitHub-update', color: 'good', message: 'Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
+        slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
       }
     }
 
@@ -31,25 +31,13 @@ pipeline {
       steps {
         sh 'npm test'
         echo 'npm test..'
-        slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
+        slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Rama-test : Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
       }
     }
 
     stage('Notificacion de Finalizacion') {
-      parallel {
-        stage('Notificacion de Finalizacion') {
-          steps {
-            slackSend(channel: '#gitHub-update', color: 'good', message: 'Fin de proceso de verificación.', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
-          }
-        }
-
-        stage('Pre-Produccion') {
-          steps {
-            slackSend(message: 'ActualizaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
-            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github', changelog: true)
-          }
-        }
-
+      steps {
+        slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Fin de proceso clonar', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
       }
     }
 
@@ -57,7 +45,7 @@ pipeline {
       parallel {
         stage('Notificacion') {
           steps {
-            slackSend(color: 'warning', message: 'Realizando el merge', channel: '#gitHub-update', iconEmoji: ':manos_levantadas:', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins')
+            slackSend(color: 'warning', message: 'Rama-test : Realizando el merge a master', channel: '#gitHub-update', iconEmoji: ':manos_levantadas:', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins')
           }
         }
 
@@ -78,9 +66,9 @@ git merge main'''
       }
     }
 
-    stage('error') {
+    stage('Notificaci�n fin') {
       steps {
-        slackSend(channel: '#gitHub-update', color: 'success', message: 'Fin de proceso merge.', iconEmoji: ':manos_levantadas:', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins')
+        slackSend(channel: '#gitHub-update', color: 'success', message: 'Rama-test : Fin de proceso merge.', iconEmoji: ':manos_levantadas:', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins')
       }
     }
 
