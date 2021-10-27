@@ -3,23 +3,23 @@ import { render, wait, waitFor } from "@testing-library/react";
 import TestMock from "./TestMock";
 import ClienteWeb from "./ClienteWeb";
 // eslint-disable-next-line jest/no-mocks-import
-import MockClienteWeb from "./__mocks__/MockClienteWeb";
+// import MockClienteWeb from "./__mocks__/MockClienteWeb";
 
 test("mock a function", async () => {
   const clienteWeb = new ClienteWeb();
 
-  clienteWeb.cargarClientes = jest.fn(
-    () => new Promise(resolve => resolve(MockClienteWeb.listaClientes))
-  );
+  // clienteWeb.cargarClientes = jest.fn(
+  //   () => new Promise(resolve => resolve(MockClienteWeb.listaClientes))
+  // );
 
-  const { getAllByTestId } = render(<TestMock clienteWeb={clienteWeb} />);
+//   const { getAllByTestId } = render(<TestMock clienteWeb={clienteWeb} />);
 
-  expect(clienteWeb.cargarClientes).toHaveBeenCalled();
+//   expect(clienteWeb.cargarClientes).toHaveBeenCalled();
 
-  await wait(() => {
-    expect(getAllByTestId("cliente")).toHaveLength(3);
-  });
-});
+//   await wait(() => {
+//     expect(getAllByTestId("cliente")).toHaveLength(3);
+//   });
+// });
 
 // test("spy a function", async () => {
 //   //Arrange
@@ -34,4 +34,4 @@ test("mock a function", async () => {
 //   await waitFor(() => {
 //     expect(getAllByTestId("cliente")).toHaveLength(3);
 //   });
-// });
+});
