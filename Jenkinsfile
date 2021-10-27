@@ -7,6 +7,11 @@ pipeline {
           steps {
             git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github')
             echo 'Cloning..'
+            sh '''git config --global user.email "rcrossa@hotmail.com"
+git config --global user.name "rcrossa"
+git clone https://github.com/rcrossa/nodeapp.git
+cd nodeapp
+git checkout pre-produccion'''
           }
         }
 
