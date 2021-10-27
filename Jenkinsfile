@@ -54,7 +54,7 @@ pipeline {
             sh '''git init
 git config --global user.email "rcrossa@hotmail.com"
 git config --global user.name "rcrossa"
-git config user.pass "DiskFail"
+git config user.pass
 git merge pre-produccion
 
 
