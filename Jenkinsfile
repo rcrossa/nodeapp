@@ -5,7 +5,7 @@ pipeline {
       parallel {
         stage('Clone') {
           steps {
-            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github')
+            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github')
             echo 'Cloning..'
           }
         }
@@ -44,20 +44,9 @@ pipeline {
         }
 
         stage('Pre-Produccion') {
-          environment {
-            user = 'recross'
-            pass = 'D1skFail'
-          }
           steps {
             slackSend(message: 'ActualizaciÃƒÆ’Ã‚Â³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
             git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github', changelog: true)
-            sh '''git config --global user.email "rcrossa@hotmail.com"
-git config --global user.name "rcrossa"
-git config user.pass
-git merge pre-produccion
-
-
-'''
           }
         }
 
