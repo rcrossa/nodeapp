@@ -21,17 +21,17 @@ test("mock a function", async () => {
   });
 });
 
-test("spy a function", async () => {
-  //Arrange
-  const mock = new MockClienteWeb();
-  const clienteWebSpy = jest.spyOn(mock, "cargarClientes");
+// test("spy a function", async () => {
+//   //Arrange
+//   const mock = new MockClienteWeb();
+//   const clienteWebSpy = jest.spyOn(mock, "cargarClientes");
 
-  const { getAllByTestId } = render(<TestMock clienteWeb={mock} />);
+//   const { getAllByTestId } = render(<TestMock clienteWeb={mock} />);
 
-  //Act
-  //Assert
-  expect(clienteWebSpy).toHaveBeenCalled();
-  await waitFor(() => {
-    expect(getAllByTestId("cliente")).toHaveLength(3);
-  });
-});
+//   //Act
+//   //Assert
+//   expect(clienteWebSpy).toHaveBeenCalled();
+//   await waitFor(() => {
+//     expect(getAllByTestId("cliente")).toHaveLength(3);
+//   });
+// });
