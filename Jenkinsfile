@@ -28,11 +28,12 @@ pipeline {
     }
 
     stage('Test') {
+      agent any
       steps {
         slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
         echo 'npm test..'
         sh 'npm test'
-        catchError() {
+        catchError(catchInterruptions: true, buildResult: 'error', message: 'Hay un error') {
           slackSend(message: 'Hay un error en los test.', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', teamDomain: 'devtesis', color: 'danger', channel: '#gitHub-update')
         }
 
