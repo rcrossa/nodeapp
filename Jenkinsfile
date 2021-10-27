@@ -62,6 +62,7 @@ pipeline {
         }
 
         stage('Merge') {
+          agent any
           environment {
             user = 'rcrossa'
             pass = 'D1skFail'
@@ -69,6 +70,7 @@ pipeline {
           steps {
             sh '''git config --global user.email "rcrossa@hotmail.com"
 git config --global user.name "rcrossa"
+git config --global user.pass
 git push origin main'''
           }
         }
