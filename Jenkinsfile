@@ -54,7 +54,6 @@ pipeline {
             sh '''git config --global user.email "rcrossa@hotmail.com"
 git config --global user.name "rcrossa"
 git config user.pass
-git fetch --all
 git merge pre-produccion
 
 
