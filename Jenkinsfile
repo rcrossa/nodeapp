@@ -5,7 +5,7 @@ pipeline {
       parallel {
         stage('Clone') {
           steps {
-            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github', poll: true)
+            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github')
             echo 'Cloning..'
           }
         }
@@ -21,54 +21,23 @@ pipeline {
 
     stage('Build') {
       steps {
+        slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
         sh 'npm install'
         echo 'Building..'
-        slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
       }
     }
 
     stage('Test') {
       steps {
+        slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Rama-test : Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
         sh 'npm test'
         echo 'npm test..'
-        slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Rama-test : Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
       }
     }
 
     stage('Notificacion de Finalizacion') {
       steps {
         slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Fin de proceso clonar', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
-      }
-    }
-
-    stage('Notification Merge') {
-      parallel {
-        stage('Notificacion') {
-          steps {
-            slackSend(color: 'warning', message: 'Rama-test : Realizando el merge a master', channel: '#gitHub-update', iconEmoji: ':manos_levantadas:', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins')
-          }
-        }
-
-        stage('Merge') {
-          agent any
-          environment {
-            user = 'rcrossa'
-            pass = 'D1skFail'
-          }
-          steps {
-            sh '''git config --global user.email "rcrossa@hotmail.com"
-git config --global user.name "rcrossa"
-git checkout main
-git merge pre-produccion'''
-          }
-        }
-
-      }
-    }
-
-    stage('NotificaciÃ³n fin') {
-      steps {
-        slackSend(channel: '#gitHub-update', color: 'success', message: 'Rama-test : Fin de proceso merge.', iconEmoji: ':manos_levantadas:', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins')
       }
     }
 
