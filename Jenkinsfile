@@ -20,6 +20,12 @@ pipeline {
     }
 
     stage('Build') {
+      agent {
+        node {
+          label 'node'
+        }
+
+      }
       steps {
         slackSend(channel: '#gitHub-update', color: 'good', message: 'Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
         echo 'Building..'
@@ -28,7 +34,12 @@ pipeline {
     }
 
     stage('Test') {
-      agent any
+      agent {
+        node {
+          label 'node'
+        }
+
+      }
       steps {
         slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
         echo 'npm test..'
