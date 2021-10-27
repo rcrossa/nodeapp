@@ -12,7 +12,7 @@ pipeline {
 
         stage('Notificacion') {
           steps {
-            slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Incio de proceso de Clonación', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
+            slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Incio de proceso de ClonaciÃ³n', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
           }
         }
 
@@ -46,7 +46,7 @@ pipeline {
         stage('Pre-Produccion') {
           steps {
             git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github', changelog: true)
-            slackSend(message: 'ActualizaciÃ³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
+            slackSend(message: 'ActualizaciÃƒÂ³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
             sh '''sh \'git switch main\'�
 sh \'git merge pre-produccion\'
 sh \'git commit -am "pre-produccion branch to main\'
