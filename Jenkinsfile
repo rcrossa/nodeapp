@@ -4,16 +4,15 @@ pipeline {
     stage('Cloning') {
       parallel {
         stage('Clone') {
-          agent any
           steps {
-            echo 'Cloning..'
             git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github')
+            echo 'Cloning..'
           }
         }
 
         stage('Notificacion') {
           steps {
-            slackSend(channel: '#gitHub-update', color: 'good', message: 'Incio de proceso de Clonación', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
+            slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Incio de proceso de Clonación', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
           }
         }
 
@@ -22,28 +21,35 @@ pipeline {
 
     stage('Build') {
       steps {
-        slackSend(channel: '#gitHub-update', color: 'good', message: 'Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
-        echo 'Building..'
         sh 'npm install'
+        echo 'Building..'
+        slackSend(channel: '#gitHub-update', color: 'good', message: 'Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
       }
     }
 
     stage('Test') {
       steps {
-        slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
-        echo 'Testeando.'
         sh 'npm test'
-        catchError(catchInterruptions: true, buildResult: 'error', message: 'Hay un error') {
-          slackSend(message: 'Hay un error en los test.', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', teamDomain: 'devtesis', color: 'danger', channel: '#gitHub-update')
-        }
-
+        echo 'npm test..'
+        slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
       }
     }
 
-    stage('Pre-Produccion') {
-      steps {
-        slackSend(message: 'ActualizaciÃ³n de rama production', channel: '#gitHub-update', color: 'good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
-        git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github', changelog: true)
+    stage('Notificacion de Finalizacion') {
+      parallel {
+        stage('Notificacion de Finalizacion') {
+          steps {
+            slackSend(channel: '#gitHub-update', color: 'good', message: 'Fin de proceso. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
+          }
+        }
+
+        stage('Pre-Produccion') {
+          steps {
+            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github', changelog: true)
+            slackSend(message: 'ActualizaciÃ³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
+          }
+        }
+
       }
     }
 
