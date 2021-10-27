@@ -58,15 +58,15 @@ pipeline {
           steps {
             sh '''git config --global user.email "rcrossa@hotmail.com"
 git config --global user.name "rcrossa"
-git checkout pre-produccion
-git merge main'''
+git checkout main
+git merge pre-produccion'''
           }
         }
 
       }
     }
 
-    stage('Notificación fin') {
+    stage('NotificaciÃ³n fin') {
       steps {
         slackSend(channel: '#gitHub-update', color: 'success', message: 'Rama-test : Fin de proceso merge.', iconEmoji: ':manos_levantadas:', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins')
       }
