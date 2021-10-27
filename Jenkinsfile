@@ -61,7 +61,7 @@ pipeline {
           }
         }
 
-        stage('') {
+        stage('Merge') {
           environment {
             user = 'rcrossa'
             pass = 'D1skFail'
@@ -69,7 +69,6 @@ pipeline {
           steps {
             sh '''git config --global user.email "rcrossa@hotmail.com"
 git config --global user.name "rcrossa"
-git config user.pass
 git push origin main'''
           }
         }
@@ -77,7 +76,7 @@ git push origin main'''
       }
     }
 
-    stage('') {
+    stage('error') {
       steps {
         slackSend(channel: '#gitHub-update', color: 'success', message: 'Fin de proceso merge.', iconEmoji: ':manos_levantadas:', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins')
       }
