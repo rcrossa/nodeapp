@@ -48,7 +48,6 @@ pipeline {
             slackSend(message: 'ActualizaciÃƒÆ’Ã‚Â³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
             git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github', changelog: true)
             sh 'git merge pre-produccion'
-            sh 'git commit -m "pre-produccion branch to main'
             sh 'git push origin master'
           }
         }
