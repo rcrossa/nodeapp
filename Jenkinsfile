@@ -39,28 +39,23 @@ pipeline {
       parallel {
         stage('Notificacion de Finalizacion') {
           steps {
-            slackSend(channel: '#gitHub-update', color: 'good', message: 'Fin de proceso. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
+            slackSend(channel: '#gitHub-update', color: 'good', message: 'Fin de proceso de verificaci�n.', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
           }
         }
 
         stage('Pre-Produccion') {
-          environment {
-            user = 'recross'
-            pass = 'D1skFail'
-          }
           steps {
             slackSend(message: 'ActualizaciÃƒÆ’Ã‚Â³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
-            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github', changelog: true)
-            sh '''git config --global user.email "rcrossa@hotmail.com"
-git config --global user.name "rcrossa"
-git config user.pass
-git merge pre-produccion
-
-
-'''
+            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github', changelog: true)
           }
         }
 
+      }
+    }
+
+    stage('') {
+      steps {
+        slackSend(color: 'warning', message: 'Realizando el merge', channel: '#gitHub-update', iconEmoji: ':manos_levantadas:', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins')
       }
     }
 
