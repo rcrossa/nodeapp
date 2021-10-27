@@ -7,10 +7,7 @@ pipeline {
           steps {
             git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github')
             echo 'Cloning..'
-            sh '''git config --global user.email "rcrossa@hotmail.com"
-git config --global user.name "rcrossa"
-git clone�https://github.com/rcrossa/nodeapp.git
-cd nodeapp
+            sh '''cd nodeapp
 git checkout pre-produccion'''
           }
         }
@@ -71,7 +68,7 @@ git merge pre-produccion'''
       }
     }
 
-    stage('Notificación fin') {
+    stage('NotificaciÃ³n fin') {
       steps {
         slackSend(channel: '#gitHub-update', color: 'success', message: 'Rama-test : Fin de proceso merge.', iconEmoji: ':manos_levantadas:', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins')
       }
