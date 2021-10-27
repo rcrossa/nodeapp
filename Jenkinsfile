@@ -29,7 +29,7 @@ pipeline {
 
     stage('Test') {
       steps {
-        slackSend(channel: '#gitHub-update', color: 'yellow', message: 'Rama-test : Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
+        slackSend(channel: '#gitHub-update', color: 'success', message: 'Rama-test : Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
         sh 'npm test'
         echo 'npm test..'
       }
