@@ -7,7 +7,7 @@ pipeline {
           agent any
           steps {
             echo 'Cloning..'
-            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github')
+            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github')
           }
         }
 
@@ -46,7 +46,7 @@ pipeline {
       agent any
       steps {
         slackSend(message: 'ActualizaciÃ³n de rama production', channel: '#gitHub-update', color: 'good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
-        git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github', changelog: true)
+        git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github', changelog: true)
       }
     }
 
