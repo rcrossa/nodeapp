@@ -4,6 +4,7 @@ pipeline {
     stage('Cloning') {
       parallel {
         stage('Clone') {
+          agent any
           steps {
             echo 'Cloning..'
             git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'test', credentialsId: 'github')
@@ -20,12 +21,7 @@ pipeline {
     }
 
     stage('Build') {
-      agent {
-        node {
-          label 'node'
-        }
-
-      }
+      agent any
       steps {
         slackSend(channel: '#gitHub-update', color: 'good', message: 'Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
         echo 'Building..'
@@ -36,7 +32,7 @@ pipeline {
     stage('Test') {
       agent {
         node {
-          label 'node'
+          label 'nodejs'
         }
 
       }
