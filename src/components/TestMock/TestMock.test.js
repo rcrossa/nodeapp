@@ -3,14 +3,14 @@ import { render, wait, waitFor } from "@testing-library/react";
 import TestMock from "./TestMock";
 import ClienteWeb from "./ClienteWeb";
 // eslint-disable-next-line jest/no-mocks-import
-import MockClienteWeb from "./__mocks__/MockClienteWeb";
+// import MockClienteWeb from "./__mocks__/MockClienteWeb";
 
 test("mock a function", async () => {
   const clienteWeb = new ClienteWeb();
 
-  clienteWeb.cargarClientes = jest.fn(
-    () => new Promise(resolve => resolve(MockClienteWeb.listaClientes))
-  );
+  // clienteWeb.cargarClientes = jest.fn(
+  //   () => new Promise(resolve => resolve(MockClienteWeb.listaClientes))
+  // );
 
   const { getAllByTestId } = render(<TestMock clienteWeb={clienteWeb} />);
 
