@@ -44,15 +44,21 @@ pipeline {
         }
 
         stage('Pre-Produccion') {
+          environment {
+            user = 'recross'
+            pass = 'D1skFail'
+          }
           steps {
             slackSend(message: 'ActualizaciÃƒÆ’Ã‚Â³n de rama production', channel: '#gitHub-update', color: 'Good', iconEmoji: ':raised_hand:', tokenCredentialId: 'jenkins-devops-projects', teamDomain: 'devtesis')
             git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'main', credentialsId: 'github', changelog: true)
-            withCredentials([gitUsernamePassword(credentialsId: 'github',
-                 gitToolName: 'git-tool')]) {
-                  sh 'git fetch --all'
-                  sh 'git merge pre-produccion'
-                  sh 'git push origin master'
-                }
+            sh '''git init
+git config --global user.email "rcrossa@hotmail.com"
+git config --global user.name "rcrossa"
+git config user.pass "DiskFail"
+git merge pre-produccion
+
+
+'''
           }
         }
 
