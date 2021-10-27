@@ -5,7 +5,7 @@ pipeline {
       parallel {
         stage('Clone') {
           steps {
-            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'test', credentialsId: 'github')
+            git(url: 'https://github.com/rcrossa/nodeapp.git', branch: 'pre-produccion', credentialsId: 'github')
             echo 'Cloning..'
           }
         }
