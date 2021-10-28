@@ -29,7 +29,7 @@ pipeline {
 
     stage('Test') {
       steps {
-        slackSend(channel: '#gitHub-update', color: 'success', message: 'Inicio de Tests en master', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
+        slackSend(channel: '#gitHub-update', color: 'good', message: 'Inicio de Tests en master', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
         sh 'npm test'
         echo 'npm test..'
       }
@@ -37,7 +37,7 @@ pipeline {
 
     stage('Notificacion de Finalizacion') {
       steps {
-        slackSend(channel: '#gitHub-update', color: 'success', message: 'Fin de proceso en master', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
+        slackSend(channel: '#gitHub-update', color: 'good', message: 'Fin de proceso en master', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
       }
     }
 
