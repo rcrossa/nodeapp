@@ -37,7 +37,7 @@ pipeline {
 
     stage('Notificacion de Finalizacion') {
       steps {
-        slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Fin de proceso clonar', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
+        slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Fin de proceso rama test.', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':manos_levantadas:')
       }
     }
 
