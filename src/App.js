@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <hr />
-        {/* <TestBasico /> */}
+        <TestBasico />
         <hr /> 
         {/* <TestMock clienteWeb={ ClienteWeb } /> */}
       </header>
