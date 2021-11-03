@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Cloning') {
+    stage('Repositorio') {
       parallel {
         stage('Clone') {
           steps {
@@ -21,7 +21,7 @@ pipeline {
 
     stage('Instalacion') {
       steps {
-        slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Realizando la instalacion.', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
+        slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Instalando', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
         sh 'npm install'
         echo 'Building..'
       }
@@ -29,7 +29,7 @@ pipeline {
 
     stage('Pruebas') {
       steps {
-        slackSend(channel: '#gitHub-update', color: 'success', message: 'Rama-test : Ejecución de pruebas', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
+        slackSend(channel: '#gitHub-update', color: 'success', message: 'Rama-test : Probando.', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
         sh 'npm test'
         echo 'npm test..'
       }
