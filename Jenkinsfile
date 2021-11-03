@@ -12,24 +12,24 @@ pipeline {
 
         stage('Notificacion') {
           steps {
-            slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Clonar', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
+            slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Verificando el repositorio', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', iconEmoji: ':one:', username: 'jenkins')
           }
         }
 
       }
     }
 
-    stage('Build') {
+    stage('Instalacion') {
       steps {
-        slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Inicio de Build', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
+        slackSend(channel: '#gitHub-update', color: 'good', message: 'Rama-test : Realizando la instalacion.', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':two:')
         sh 'npm install'
         echo 'Building..'
       }
     }
 
-    stage('Test') {
+    stage('Pruebas') {
       steps {
-        slackSend(channel: '#gitHub-update', color: 'success', message: 'Rama-test : Inicio de Tests. ', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
+        slackSend(channel: '#gitHub-update', color: 'success', message: 'Rama-test : Ejecución de pruebas', teamDomain: 'devtesis', tokenCredentialId: 'jenkins-devops-projects', username: 'Jenkins', iconEmoji: ':three:')
         sh 'npm test'
         echo 'npm test..'
       }
