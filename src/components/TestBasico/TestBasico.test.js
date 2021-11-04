@@ -6,7 +6,7 @@ test("input value is rendered when the form is submitted", () => {
   //Arrange
   const { getByTestId } = render(<TestBasico />);
 
-  // const input = getByTestId("cajainput");
+  const input = getByTestId("cajainput");
   const button = getByTestId("button");
   const result = getByTestId("result");
 
